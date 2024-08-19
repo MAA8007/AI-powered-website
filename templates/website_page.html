@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+Articles from {{ website_name }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Articles from "{{ website_name }}"</h2>
+    <hr>
+
+    {% if articles %}
+        <ul class="list-group">
+            {% for article in articles %}
+                <li class="list-group-item">
+                    <h5><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></h5>
+                    <p>{{ article.summary }}</p>
+                    <small>Published on: {{ article.published|date:"F j, Y" }} | Category: {{ article.category }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles found from this website.</p>
+    {% endif %}
+</div>
+{% endblock %}

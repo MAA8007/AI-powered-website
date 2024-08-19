@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+Articles
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <hr>
+
+    {% if articles %}
+        <ul class="list-group">
+            {% for article in articles %}
+                <li class="list-group-item">
+                    <h5><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></h5>
+                    <p>{{ article.summary }}</p>
+                    <small>Published on: {{ article.published|date:"F j, Y" }} | Source: {{ article.website }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles found in this category.</p>
+    {% endif %}
+</div>
+{% endblock %}

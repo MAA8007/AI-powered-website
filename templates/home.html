@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}
+Welcome to My Django Site
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Welcome Section -->
+    <div class="jumbotron text-center bg-light">
+        <h1 class="display-4">Welcome to My Django Site!</h1>
+        <p class="lead">Your go-to source for the latest articles on various topics.</p>
+        <hr class="my-4">
+        <p>Explore categories, discover new websites, or use our AI chat to get personalized recommendations.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'summaries' %}" role="button">Explore Summaries</a>
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="row text-center mb-5">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Categories</h5>
+                    <p class="card-text">Browse articles by your favorite categories.</p>
+                    <a href="#" class="btn btn-secondary dropdown-toggle" id="categoriesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Category
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                        {% for category in categories %}
+                            <a class="dropdown-item" href="{% url 'category_page' category %}">{{ category }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Websites</h5>
+                    <p class="card-text">Discover articles from a variety of websites.</p>
+                    <a href="#" class="btn btn-secondary dropdown-toggle" id="websitesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Website
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="websitesDropdown">
+                        {% for website in websites %}
+                            <a class="dropdown-item" href="{% url 'website_page' website %}">{{ website }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Chat with AI</h5>
+                    <p class="card-text">Get personalized article recommendations or ask any questions.</p>
+                    <a href="{% url 'chat_with_bot' %}" class="btn btn-secondary">Chat Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Articles Section -->
+    <div class="row">
+        <div class="col">
+            <h2>Recent Articles</h2>
+            <hr>
+            {% if articles %}
+                <ul class="list-group">
+                    {% for article in articles %}
+                        <li class="list-group-item">
+                            <h5><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></h5>
+                            <p>{{ article.summary|truncatewords:30 }}</p>
+                            <small>Published on: {{ article.published|date:"F j, Y" }} | Category: {{ article.category }} | Website: {{ article.website }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No recent articles available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

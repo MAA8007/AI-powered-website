@@ -1,0 +1,44 @@
+<!-- summaries.html -->
+{% extends "base.html" %}
+
+{% block title %}Article Summaries{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Article Summaries</h2>
+    <form method="get" action="{% url 'summaries' %}">
+        <label for="category">Category:</label>
+        <select name="category" id="category">
+            <option value="">All</option>
+            {% for category in categories %}
+            <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="website">Website:</label>
+        <select name="website" id="website">
+            <option value="">All</option>
+            {% for website in websites %}
+            <option value="{{ website }}" {% if website == selected_website %}selected{% endif %}>{{ website }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <ul class="list-group mt-4">
+        {% for article in articles %}
+        <li class="list-group-item">
+            <img src="{{ article.image }}" alt="">
+            <h5><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></h5>
+            <p>{{ article.summary }}</p>
+            <small>Published on: {{ article.published|date:"F j, Y" }} | Category: {{ article.category }} | Website: {{ article.website }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if not articles %}
+        <p>No articles found matching the selected filters.</p>
+    {% endif %}
+</div>
+{% endblock %}
