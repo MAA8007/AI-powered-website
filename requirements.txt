@@ -1,0 +1,14 @@
+concurrent.futures
+Django>=3.2
+langchain-core
+langchain-openai
+langchain-google-genai
+faiss-cpu>=1.7.0
+pandas>=1.3.0
+python-dateutil>=2.8.0
+requests>=2.25.0
+beautifulsoup4>=4.9.0
+langchain_core
+langchain_openai
+langchain_google_genai
+
